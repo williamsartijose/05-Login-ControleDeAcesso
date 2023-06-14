@@ -1,4 +1,4 @@
-package com.wsjinformatica.demo;
+package com.devsuperior.demo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

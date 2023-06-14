@@ -1,4 +1,4 @@
-package com.wsjinformatica.demo;
+package com.demo.dscatalog;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
