@@ -8,20 +8,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 
 @SpringBootApplication
-public class WsjdscommerceApplication implements CommandLineRunner {
-
-	@Autowired
-	private BCryptPasswordEncoder passwordEncoder;
-
+public class WsjdscommerceApplication  {
 
 	public static void main(String[] args) {
 		SpringApplication.run(WsjdscommerceApplication.class, args);
 	}
 
-	@Override
-	public void run(String... args) throws Exception {
-		String test = passwordEncoder.encode("123456");
-		System.out.println(test);
 
-	}
 }
