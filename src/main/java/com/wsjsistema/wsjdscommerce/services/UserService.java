@@ -27,19 +27,19 @@ public class UserService implements UserDetailsService {
         return user;
     }
 
-    public User authenticated() {
+    protected User authenticated() {
         try {
             String username = SecurityContextHolder.getContext().getAuthentication().getName();
             return repository.findByEmail(username);
-        } catch (Exception e) {
+        }
+        catch(Exception e) {
             throw new UsernameNotFoundException("Invalid user");
         }
     }
-@Transactional(readOnly = true)
+
+    @Transactional(readOnly = true)
     public UserDTO getMe() {
-
-        User entitiy = authenticated();
-        return  new UserDTO(entitiy);
-
+        User entity = authenticated();
+        return new UserDTO(entity);
     }
 }

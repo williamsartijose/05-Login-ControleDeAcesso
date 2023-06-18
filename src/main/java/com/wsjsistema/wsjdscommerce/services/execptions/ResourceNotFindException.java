@@ -1,9 +1,9 @@
 package com.wsjsistema.wsjdscommerce.services.execptions;
 
-public class DatabaseException extends RuntimeException {
+public class ResourceNotFindException extends RuntimeException {
     private static final long serialVersionUID = 1L;
 
-    public DatabaseException(String msg) {
+    public ResourceNotFindException(String msg) {
         super(msg);
     }
 }

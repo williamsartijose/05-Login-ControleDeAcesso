@@ -18,28 +18,29 @@ public class User implements UserDetails {
 	private Long id;
 
 	private String name;
-	
+
 	@Column(unique = true)
 	private String email;
-	
-	
+
 	private String phone;
+
 	private LocalDate birthDate;
+
 	private String password;
 
-	@OneToMany(mappedBy = "client") // 1(um) para muitos
+	@OneToMany(mappedBy = "client")
 	private List<Order> orders = new ArrayList<>();
+
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "tb_user_role",
 			joinColumns = @JoinColumn(name = "user_id"),
 			inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles = new HashSet<>();
-	public User() {
 
+	public User() {
 	}
 
 	public User(Long id, String name, String email, String phone, LocalDate birthDate, String password) {
-		super();
 		this.id = id;
 		this.name = name;
 		this.email = email;
@@ -88,38 +89,8 @@ public class User implements UserDetails {
 		this.birthDate = birthDate;
 	}
 
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return roles;
-	}
-
 	public String getPassword() {
 		return password;
-	}
-
-	@Override
-	public String getUsername() {
-		return email;
-	}
-
-	@Override
-	public boolean isAccountNonExpired() {
-		return true;
-	}
-
-	@Override
-	public boolean isAccountNonLocked() {
-		return true;
-	}
-
-	@Override
-	public boolean isCredentialsNonExpired() {
-		return true;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return false;
 	}
 
 	public void setPassword(String password) {
@@ -133,4 +104,50 @@ public class User implements UserDetails {
 	public Set<Role> getRoles() {
 		return roles;
 	}
+
+	public boolean hasRole(String roleName) {
+		for(Role role : roles) {
+			if(role.getAuthority().equals(roleName)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+
+		return roles;
+	}
+
+	@Override
+	public String getUsername() {
+
+		return email;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+
+		return true;
+	}
+
 }

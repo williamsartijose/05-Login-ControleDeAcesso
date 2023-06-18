@@ -15,8 +15,9 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.validation.Valid;
 import java.net.URI;
 
+
 @RestController
-@RequestMapping (value = "/users")
+@RequestMapping(value = "/users")
 public class UserController {
 
     @Autowired
@@ -28,5 +29,5 @@ public class UserController {
         UserDTO dto = service.getMe();
         return ResponseEntity.ok(dto);
     }
-}
 
+}

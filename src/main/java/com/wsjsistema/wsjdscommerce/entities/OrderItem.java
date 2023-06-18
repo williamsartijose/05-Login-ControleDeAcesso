@@ -1,5 +1,7 @@
 package com.wsjsistema.wsjdscommerce.entities;
 
+import com.wsjsistema.wsjdscommerce.dto.ProductDTO;
+
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -7,9 +9,12 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "tb_order_item")
 public class OrderItem {
+
     @EmbeddedId
     private OrderItemPK id = new OrderItemPK();
+
     private Integer quantity;
+
     private Double price;
 
     public OrderItem() {
@@ -22,19 +27,19 @@ public class OrderItem {
         this.price = price;
     }
 
-    public Order getorder(){
+    public Order getOrder() {
         return id.getOrder();
     }
 
-    public void SetOrder(Order order){
+    public void setOrder(Order order) {
         id.setOrder(order);
     }
 
-    public Product getproduct(){
+    public Product getProduct() {
         return id.getProduct();
     }
 
-    public void SetProduct (Product product){
+    public void setProduct(Product product) {
         id.setProduct(product);
     }
 
@@ -53,4 +58,5 @@ public class OrderItem {
     public void setPrice(Double price) {
         this.price = price;
     }
+
 }
