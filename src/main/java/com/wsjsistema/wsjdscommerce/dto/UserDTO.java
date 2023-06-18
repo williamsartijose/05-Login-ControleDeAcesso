@@ -1,11 +1,12 @@
 package com.wsjsistema.wsjdscommerce.dto;
 
-import com.wsjsistema.wsjdscommerce.entities.User;
-import org.springframework.security.core.GrantedAuthority;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.wsjsistema.wsjdscommerce.entities.User;
+import org.springframework.security.core.GrantedAuthority;
+
 
 public class UserDTO {
 
@@ -30,7 +31,8 @@ public class UserDTO {
         email = entity.getEmail();
         phone = entity.getPhone();
         birthDate = entity.getBirthDate();
-        for  (GrantedAuthority role : entity.getAuthorities()) {
+
+        for(GrantedAuthority role : entity.getAuthorities()) {
             roles.add(role.getAuthority());
         }
     }
@@ -58,4 +60,5 @@ public class UserDTO {
     public List<String> getRoles() {
         return roles;
     }
+
 }

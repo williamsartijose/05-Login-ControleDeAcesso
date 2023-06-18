@@ -1,21 +1,31 @@
 package com.wsjsistema.wsjdscommerce.dto;
 
+import com.wsjsistema.wsjdscommerce.entities.Category;
 import com.wsjsistema.wsjdscommerce.entities.Product;
-import javax.persistence.Column;
 import javax.validation.constraints.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProductDTO {
 
     private Long id;
-    @Size(min = 3, max = 80, message = "Nome precisa ter de 3 a 80 caracteres")
-    @NotBlank(message = "Campo requerido")
+
+    @Size(min = 3, max = 80, message = "O nome precisa ter de 3 a 80 caracteres.")
+    @NotBlank(message = "Campo obrigatório!")
     private String name;
-    @Size(min = 10, message = "Descrição precisa ter no minimo 10 caracteres")
-    @NotBlank(message = "Campo requerido")
+
+    @Size(min = 10, message = "A descrição precisa ter no mínimo 1 caracteres")
+    @NotBlank(message = "Campo obrigatório!")
     private String description;
-    @Positive(message =  "O preço deve ser positivo")
+
+    @NotNull(message = "Campo obrigatório!")
+    @Positive(message = "O preço deve ser positivo.")
     private Double price;
+
     private String imgUrl;
+
+    @NotEmpty(message = "Deve ter pelo menos uma categoria.")
+    private List<CategoryDTO> categories = new ArrayList<>();
 
     public ProductDTO(Long id, String name, String description, Double price, String imgUrl) {
         this.id = id;
@@ -24,12 +34,16 @@ public class ProductDTO {
         this.price = price;
         this.imgUrl = imgUrl;
     }
-    public ProductDTO(Product entitiy) {
-        id = entitiy.getId();
-        name = entitiy.getName();
-        description = entitiy.getDescription();
-        price = entitiy.getPrice();
-        imgUrl = entitiy.getImgUrl();
+
+    public ProductDTO(Product entity) {
+        id = entity.getId();
+        name = entity.getName();
+        description = entity.getDescription();
+        price = entity.getPrice();
+        imgUrl = entity.getImgUrl();
+        for (Category cat : entity.getCategories()) {
+            categories.add(new CategoryDTO(cat));
+        }
     }
 
     public Long getId() {
@@ -50,5 +64,9 @@ public class ProductDTO {
 
     public String getImgUrl() {
         return imgUrl;
+    }
+
+    public List<CategoryDTO> getCategories() {
+        return categories;
     }
 }
