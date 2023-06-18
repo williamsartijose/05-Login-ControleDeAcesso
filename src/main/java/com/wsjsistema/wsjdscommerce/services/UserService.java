@@ -1,12 +1,15 @@
 package com.wsjsistema.wsjdscommerce.services;
 
+import com.wsjsistema.wsjdscommerce.dto.UserDTO;
 import com.wsjsistema.wsjdscommerce.entities.User;
 import com.wsjsistema.wsjdscommerce.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -22,5 +25,21 @@ public class UserService implements UserDetailsService {
             throw new UsernameNotFoundException("Email not found");
         }
         return user;
+    }
+
+    public User authenticated() {
+        try {
+            String username = SecurityContextHolder.getContext().getAuthentication().getName();
+            return repository.findByEmail(username);
+        } catch (Exception e) {
+            throw new UsernameNotFoundException("Invalid user");
+        }
+    }
+@Transactional(readOnly = true)
+    public UserDTO getMe() {
+
+        User entitiy = authenticated();
+        return  new UserDTO(entitiy);
+
     }
 }
